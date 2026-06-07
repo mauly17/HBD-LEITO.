@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Wonho 💙</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .carta {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      padding: 28px 24px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      display: none;
+    }
+
+    h1 {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      text-align: center;
+      color: #2f3a56;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #3a3a3a;
+      margin-bottom: 14px;
+    }
+
+    .firma {
+      margin-top: 22px;
+      font-size: 0.9rem;
+      color: #2f3a56;
+      text-align: right;
+      font-style: italic;
+    }
+
+    .corazon {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 10px;
+      animation: latido 1.5s infinite;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    button.inicio {
+      background: none;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: #2f3a56;
+      padding: 30px;
+      cursor: pointer;
+      animation: parpadeo 1.8s infinite;
+    }
+
+    @keyframes parpadeo {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="inicio" id="inicio">
+    Toca la pantalla 💙
+  </button>
+
+  <div class="carta" id="carta">
+    <h1>Para Wonho, mi chichón precioso 💙</h1>
+    <div id="texto"></div>
+
+    <div class="firma">
+      Att: Mimi,<br>
+      con todo el amor que cabe en estas palabras y un poquito más 💙✨
+    </div>
+
+    <div class="corazon">💙</div>
+  </div>
+
+  <audio id="musica" src="spring-snow.mp3" loop></audio>
+
+  <script>
+    const textoCompleto = `
+Hay amores que llegan sin hacer ruido, y otros que entran como una canción que no se puede sacar de la cabeza. Este amor por ti es de los segundos.
+
+Es de esos que se quedan, que se acomodan en el pecho y deciden vivir ahí para siempre. Porque desde que apareciste, el mundo se siente distinto, más tibio, más bonito, más hogar.
+
+Wonho, mi bonito, tu nombre tiene algo especial. Decirlo es como sonreír sin darse cuenta. Pensarte es como abrazar una almohada en una madrugada fría.
+
+Eres calma y al mismo tiempo emoción, eres risa fácil y mirada que lo dice todo sin palabras. Hay algo en ti que desarma, que derrite, que vuelve suave incluso los días más duros.
+
+Este amor te admira en lo pequeño: en cómo existes, en cómo eres cuando no intentas ser nada más. En tus gestos, en tus silencios, en la forma en que llenas espacios sin hacer esfuerzo.
+
+Te ama en lo simple y en lo profundo, en lo cotidiano y en lo eterno. Te ama cuando sonríes y también cuando no sabes cómo explicar lo que sientes.
+
+Mi niño, amar así es elegirte todos los días. Es cuidarte incluso en pensamiento, es respetarte, defenderte, celebrarte.
+
+Es sentir orgullo al decir tu nombre y paz al imaginar un futuro donde sigues estando. Es desear que el mundo te trate bonito, y si no lo hace, querer ser refugio.
+
+Este amor no grita, pero es inmenso. No presume, pero es leal. No promete perfección, pero sí verdad.
+
+Es un amor que quiere crecer contigo, aprender contigo, equivocarse y volver a intentar contigo. Un amor que se queda, que no corre, que no duda cuando se trata de ti.
+
+Wonho, ojalá nunca olvides lo amado que eres. Ojalá recuerdes siempre que hay un corazón que te piensa con ternura, que te nombra con cariño, que te siente como un regalo.
+
+Porque eso eres: un regalo inesperado, precioso, irremplazable.
+
+Y si algún día el mundo pesa, que esta carta sea prueba de algo simple y fuerte a la vez: que hay un amor que te elige, que te cuida y que te ama de una manera absurdamente cursi… pero completamente sincera.
+`;
+
+    let i = 0;
+    const velocidad = 22;
+
+    function escribirTexto() {
+      if (i < textoCompleto.length) {
+        document.getElementById("texto").innerHTML +=
+          textoCompleto.charAt(i) === "\n" ? "<br><br>" : textoCompleto.charAt(i);
+        i++;
+        setTimeout(escribirTexto, velocidad);
+      }
+    }
+
+    const boton = document.getElementById("inicio");
+    const musica = document.getElementById("musica");
+
+    boton.addEventListener("click", async () => {
+      boton.style.display = "none";
+      document.getElementById("carta").style.display = "block";
+
+      try {
+        await musica.play();
+      } catch (e) {
+        console.log("Audio bloqueado por el navegador");
+      }
+
+      escribirTexto();
+    });
+  </script>
+
+</body>
+</html>
