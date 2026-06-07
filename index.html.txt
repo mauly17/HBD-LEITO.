@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Leito 🩵 </title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .carta {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      padding: 28px 24px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      display: none;
+    }
+
+    h1 {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      text-align: center;
+      color: #2f3a56;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #3a3a3a;
+      margin-bottom: 14px;
+    }
+
+    .firma {
+      margin-top: 22px;
+      font-size: 0.9rem;
+      color: #2f3a56;
+      text-align: right;
+      font-style: italic;
+    }
+
+    .corazon {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 10px;
+      animation: latido 1.5s infinite;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    button.inicio {
+      background: none;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: #2f3a56;
+      padding: 30px;
+      cursor: pointer;
+      animation: parpadeo 1.8s infinite;
+    }
+
+    @keyframes parpadeo {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="inicio" id="inicio">
+    Toca la pantalla 🩵
+  </button>
+
+  <div class="carta" id="carta">
+    <h1>Para Leito, mi Viejillo precioso 🩵</h1>
+    <div id="texto"></div>
+
+    <div class="firma">
+      Att: Mauu,<br>
+      con todo el amor que cabe en estas palabras y un poquito más 🩵✨
+    </div>
+
+    <div class="corazon">🩵</div>
+  </div>
+
+  <audio id="musica" src="spring-snow.mp3" loop></audio>
+
+  <script>
+    const textoCompleto = `
+Feliz cumpleaños, Leo. 🩵🎂
+
+No sé ni por dónde empezar, porque hay tantas cosas que quisiera decirte hoy. Primero que nada, espero que tengas un cumpleaños hermoso, que te rodees de personas que te quieren, que recibas muchos abrazos, muchas sonrisas y que este nuevo año de vida venga lleno de cosas buenas para ti, porque realmente te las mereces.
+
+Y aunque tal vez las cosas no siempre hayan sido fáciles entre nosotros, quiero que sepas que, a pesar de todo, aquí sigo. Quizás de maneras diferentes, quizás con silencios que antes no existían, pero sigo estando. Porque hay personas que dejan una marca tan grande en el corazón que es imposible simplemente olvidarlas, y tú eres una de esas personas para mí.
+
+Quiero que nunca olvides cuánto te amo. Sí, te amo, y no me da miedo decirlo. Te amo por la persona que eres, por los momentos que compartimos, por las risas, por las conversaciones, por cada recuerdo que construimos juntos. Y también te extraño. Te extraño más de lo que muchas veces soy capaz de admitir. Extraño hablar contigo, escuchar de tu día, compartir cualquier tontería y sentir esa cercanía que siempre hizo que fueras tan importante para mí.
+
+Hoy cumples un año más y, aunque me duela admitirlo, ya te estás poniendo un poquito viejo. 😭😂 Pero tranquilo, todavía te quedan algunos años antes de que empieces a quejarte de la espalda cada cinco minutos. Aun así, cada año que pasa solo demuestra todo lo que has crecido y todo lo que te queda por vivir.
+
+Quiero que recuerdes algo siempre: sin importar dónde estemos, qué pase mañana o cómo cambien las cosas, siempre vas a tener un lugar especial dentro de mí. Siempre vas a estar en mi mente, en mis recuerdos favoritos y en una parte de mi corazón que te pertenece desde hace mucho tiempo. Hay personas que simplemente no se reemplazan, y tú eres una de ellas.
+
+Gracias por existir, por aparecer en mi vida y por convertirte en alguien tan importante para mí. Gracias por cada momento, por cada sonrisa que me sacaste cuando más la necesitaba y por todos esos recuerdos que todavía guardo con muchísimo cariño.
+
+Deseo de corazón que seas feliz, que cumplas cada una de tus metas, que la vida te sorprenda con cosas maravillosas y que nunca dudes de lo increíble que eres. Mereces amor, mereces tranquilidad y mereces que te pasen cosas bonitas.
+
+Feliz cumpleaños, mi Leo. 🩵
+Te amo muchísimo, te extraño más de lo que imaginas y, aunque a veces no lo diga, siempre pienso en ti. Pase lo que pase, siempre voy a guardar un lugar para ti en mi corazón. Espero que hoy sonrías mucho, que disfrutes tu día y que recuerdes que hay alguien que te quiere más de lo que las palabras pueden explicar.
+
+Feliz cumpleaños, viejito. Te quiero hoy, mañana y siempre.
+
+Y si algún día el mundo pesa, que esta carta sea prueba de algo simple y fuerte a la vez: que hay un amor que te elige, que te cuida y que te ama de una manera absurdamente cursi… pero completamente sincera.
+`;
+
+    let i = 0;
+    const velocidad = 22;
+
+    function escribirTexto() {
+      if (i < textoCompleto.length) {
+        document.getElementById("texto").innerHTML +=
+          textoCompleto.charAt(i) === "\n" ? "<br><br>" : textoCompleto.charAt(i);
+        i++;
+        setTimeout(escribirTexto, velocidad);
+      }
+    }
+
+    const boton = document.getElementById("inicio");
+    const musica = document.getElementById("musica");
+
+    boton.addEventListener("click", async () => {
+      boton.style.display = "none";
+      document.getElementById("carta").style.display = "block";
+
+      try {
+        await musica.play();
+      } catch (e) {
+        console.log("Audio bloqueado por el navegador");
+      }
+
+      escribirTexto();
+    });
+  </script>
+
+</body>
+</html>
